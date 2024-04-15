@@ -1,0 +1,19 @@
+{
+  "name": "stella-uniswap-v3-apy",
+  "version": "0.0.1",
+  "description": "Backend API that provides the Uniswap V3 protocol on Ethereum APY information.",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "watch": "nodemon app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Himanshu Singh (hsnice16@gmail.com)",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.19.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.0"
+  }
+}
