@@ -1,57 +1,83 @@
 const express = require("express");
 const router = express.Router();
-const { getResponse, removeQuotesFromString } = require("../utils/misc");
+const { getResponse } = require("../utils/misc");
+const { checkIfPoolExists } = require("../utils/check-if-pool-exists");
+
+const POOLS_DB = [];
 
 router
   .route("/")
-  .post((req, res) => {
-    console.log(
-      "POST /pool - req.body: ",
-      JSON.stringify(req.body),
-      " - time: ",
-      new Date().toISOString()
-    );
-
+  .post(async (req, res) => {
     let { address } = req.body;
-    address = address?.trim();
-
     let queryStatus;
     let code;
     let message;
+
     let data = {};
     let meta = {};
+    const isPoolExists = await checkIfPoolExists(address);
 
-    if (address === undefined || address === "") {
+    if (!isPoolExists) {
       queryStatus = "error";
       code = 400;
-      message = "`address` must be a non-empty field in the request body.";
+      message = "The pool does not exist in Ethereum mainnet.";
+    } else if (POOLS_DB.includes(address)) {
+      queryStatus = "error";
+      code = 409;
+      message = "The pool already exists.";
     } else {
-      address = removeQuotesFromString(address);
-      const isPoolExists = false;
-
-      if (isPoolExists) {
-        queryStatus = "error";
-        code = 400;
-        message = "The pool does not exist in Ethereum mainnet.";
-      } else {
-        queryStatus = "success";
-        code = 201;
-        message = "The pool was successfully added.";
-        meta = {
-          address,
-        };
-      }
+      POOLS_DB.push(address);
+      queryStatus = "success";
+      code = 201;
+      message = "The pool was successfully added.";
+      meta = {
+        address,
+      };
     }
 
     const response = getResponse(queryStatus, code, message, data, meta);
     console.log(
-      "POST /pool - response: ",
+      "POST /v1/pool - response: ",
       JSON.stringify(response),
-      " - time: ",
+      " - iso_date_string: ",
       new Date().toISOString()
     );
+
     res.status(code).json(response);
   })
-  .delete((req, res) => {});
+  .delete((req, res) => {
+    let { address } = req.body;
+    let queryStatus;
+    let code;
+    let message;
+
+    let data = {};
+    let meta = {};
+    const indexOfPool = POOLS_DB.indexOf(address);
+
+    if (indexOfPool !== -1) {
+      POOLS_DB.splice(indexOfPool, 1);
+      queryStatus = "success";
+      code = 200;
+      message = "The pool was successfully removed.";
+      meta = {
+        address,
+      };
+    } else {
+      queryStatus = "error";
+      code = 404;
+      message = "The pool does not exist.";
+    }
+
+    const response = getResponse(queryStatus, code, message, data, meta);
+    console.log(
+      "DELETE /v1/pool - response: ",
+      JSON.stringify(response),
+      " - iso_date_string: ",
+      new Date().toISOString()
+    );
+
+    res.status(code).json(response);
+  });
 
 module.exports = router;
