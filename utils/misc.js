@@ -1,11 +1,13 @@
 function errorWrapper(
   code,
-  message = "There was an error in processing your request."
+  message = "There was an error in processing your request.",
+  meta = {}
 ) {
   return {
     status: "error",
     code,
     message,
+    meta,
   };
 }
 
@@ -25,7 +27,7 @@ function successWrapper(
 }
 
 function removeQuotesFromString(stringValue) {
-  return stringValue.replace(/['"]+/g, "");
+  return stringValue?.replace(/['"]+/g, "");
 }
 
 function getResponse(status, code, message, data = {}, meta = {}) {
@@ -37,7 +39,7 @@ function getResponse(status, code, message, data = {}, meta = {}) {
     }
 
     case "error": {
-      response = errorWrapper(code, message);
+      response = errorWrapper(code, message, meta);
       break;
     }
   }

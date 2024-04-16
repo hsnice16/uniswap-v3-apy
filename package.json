@@ -11,7 +11,8 @@
   "author": "Himanshu Singh (hsnice16@gmail.com)",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.19.2"
+    "ethers": "6.11.1",
+    "express": "4.19.2"
   },
   "devDependencies": {
     "nodemon": "^3.1.0"
