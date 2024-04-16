@@ -14,6 +14,12 @@ app.use(express.json());
 app.use("/v1/apy", parseAddress, apyV1);
 app.use("/v1/pool", parseAddress, poolV1);
 
+app.get("/", (_, res) => {
+  res.status(200).json({
+    message: "Welcome to the Uniswap V3 Apy API",
+  });
+});
+
 app.listen(port, () => {
   console.log(`Express app listening on port: ${port}`);
 });
