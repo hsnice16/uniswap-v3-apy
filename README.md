@@ -11,6 +11,46 @@ Backend API that provides the Uniswap V3 protocol on Ethereum APY information.
 
 ---
 
+## 📋 API Reference
+
+### Get the APY
+
+```HTTP
+GET /v1/apy
+```
+
+#### Query parameters
+
+| param       | type   | description                                            |
+| ----------- | ------ | ------------------------------------------------------ |
+| poolAddress | string | The pool address you want to get APY for (`required`). |
+
+**Example**
+
+```HTTP
+GET /v1/apy?poolAddress=0xcbcdf9626bc03e24f779434178a73a0b4bad62ed
+```
+
+### Save a pool
+
+```HTTP
+POST /v1/pool
+
+Request Body
+{ "address": "string" }
+```
+
+### Delete a pool
+
+```HTTP
+DELETE /v1/pool
+
+Request Body
+{ "address": "string" }
+```
+
+---
+
 ## ⚙️ Develop Locally
 
 ### Pull the code
@@ -20,33 +60,33 @@ git clone git@github.com:hsnice16/stella-uniswap-v3-apy.git
 cd stella-uniswap-v3-apy
 ```
 
-You can run it in a Docker Container or start the server manually.
+### Run in a Docker Container or start the server manually
 
-### Run in a Docker Container
+#### ➡️ Run in a Docker Container
 
 You will need [docker](https://www.docker.com/get-started/) on your local machine for this.
 
-#### Build the image
+##### • Build the image
 
 ```shell
 docker build -t hsnice16/uniswap-v3-apy:1.0 .
 ```
 
-#### Run container
+##### • Run container
 
 ```shell
 docker run -p 8080:8080 hsnice16/uniswap-v3-apy:1.0
 ```
 
-### Run manually
+#### ➡️ Run manually
 
-#### Install dependencies
+##### • Install dependencies
 
 ```shell
 npm install
 ```
 
-#### Run in watch mode
+##### • Run in watch mode
 
 This way when you will make any changes you won't have to restart the server again.
 

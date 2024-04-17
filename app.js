@@ -16,7 +16,7 @@ app.use("/v1/pool", parseAddress, poolV1);
 
 app.get("/", (_, res) => {
   res.status(200).json({
-    message: "Welcome to the Uniswap V3 Apy API",
+    message: "Welcome to the Uniswap V3 APY API",
   });
 });
 
