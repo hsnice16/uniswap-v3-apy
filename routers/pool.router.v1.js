@@ -15,24 +15,33 @@ router
 
     let data = {};
     let meta = {};
-    const isPoolExists = await checkIfPoolExists(address);
 
-    if (!isPoolExists) {
-      queryStatus = "error";
-      code = 400;
-      message = "The pool does not exist in Ethereum mainnet.";
-    } else if (POOLS_DB.includes(address)) {
+    if (POOLS_DB.includes(address)) {
       queryStatus = "error";
       code = 409;
       message = "The pool already exists.";
     } else {
-      POOLS_DB.push(address);
-      queryStatus = "success";
-      code = 201;
-      message = "The pool was successfully added.";
-      meta = {
-        address,
-      };
+      try {
+        const isPoolExists = await checkIfPoolExists(address);
+
+        if (!isPoolExists) {
+          queryStatus = "error";
+          code = 400;
+          message = "The pool does not exist in Ethereum mainnet.";
+        } else {
+          POOLS_DB.push(address);
+          queryStatus = "success";
+          code = 201;
+          message = "The pool was successfully added.";
+          meta = {
+            address,
+          };
+        }
+      } catch (error) {
+        queryStatus = "error";
+        code = 500;
+        message = "Internal server error.";
+      }
     }
 
     const response = getResponse(queryStatus, code, message, data, meta);
