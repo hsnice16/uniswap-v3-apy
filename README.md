@@ -31,6 +31,10 @@ GET /v1/apy
 GET /v1/apy?poolAddress=0xcbcdf9626bc03e24f779434178a73a0b4bad62ed
 ```
 
+<div align="center">
+• • •
+</div>
+
 ### Save a pool
 
 ```HTTP
@@ -39,6 +43,10 @@ POST /v1/pool
 Request Body
 { "address": "string" }
 ```
+
+<div align="center">
+• • •
+</div>
 
 ### Delete a pool
 
@@ -77,6 +85,10 @@ docker build -t hsnice16/uniswap-v3-apy:1.0 .
 ```shell
 docker run -p 8080:8080 hsnice16/uniswap-v3-apy:1.0
 ```
+
+<div align="center">
+• • •
+</div>
 
 #### ➡️ Run manually
 
