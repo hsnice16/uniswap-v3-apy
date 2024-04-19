@@ -4,6 +4,7 @@ var cors = require("cors");
 const apyV1 = require("./routers/apy.router.v1");
 const poolV1 = require("./routers/pool.router.v1");
 const { parseAddress } = require("./middlewares/parse-address.middleware");
+const { routeNotFound } = require("./middlewares/route-not-found.middleware");
 
 const app = express();
 const port = process.env.PORT || 8080;
@@ -19,6 +20,8 @@ app.get("/", (_, res) => {
     message: "Welcome to the Uniswap V3 APY API",
   });
 });
+
+app.use(routeNotFound);
 
 app.listen(port, () => {
   console.log(`Express app listening on port: ${port}`);

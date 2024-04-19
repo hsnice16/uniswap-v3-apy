@@ -1,9 +1,8 @@
 const express = require("express");
 const router = express.Router();
 const { getResponse } = require("../utils/misc");
-const { checkIfPoolExists } = require("../utils/check-if-pool-exists");
-
-const POOLS_DB = [];
+const { isEthereumMainnetPool } = require("../utils/is-ethereum-mainnet-pool");
+const { POOLS_DB } = require("../utils/constants");
 
 router
   .route("/")
@@ -15,21 +14,22 @@ router
 
     let data = {};
     let meta = {};
+    const isPoolExist = POOLS_DB[address];
 
-    if (POOLS_DB.includes(address)) {
+    if (isPoolExist) {
       queryStatus = "error";
       code = 409;
       message = "The pool already exists.";
     } else {
       try {
-        const isPoolExists = await checkIfPoolExists(address);
+        const isEthereumPool = await isEthereumMainnetPool(address);
 
-        if (!isPoolExists) {
+        if (!isEthereumPool) {
           queryStatus = "error";
           code = 400;
           message = "The pool does not exist in Ethereum mainnet.";
         } else {
-          POOLS_DB.push(address);
+          POOLS_DB[address] = true;
           queryStatus = "success";
           code = 201;
           message = "The pool was successfully added.";
@@ -62,10 +62,10 @@ router
 
     let data = {};
     let meta = {};
-    const indexOfPool = POOLS_DB.indexOf(address);
+    const isPoolExist = POOLS_DB[address];
 
-    if (indexOfPool !== -1) {
-      POOLS_DB.splice(indexOfPool, 1);
+    if (isPoolExist) {
+      POOLS_DB[address] = false;
       queryStatus = "success";
       code = 200;
       message = "The pool was successfully removed.";

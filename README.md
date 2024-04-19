@@ -127,3 +127,13 @@ docker run -p 8080:8080 hsnice16/uniswap-v3-apy:1.0
 ```
 
 _The server is running on [localhost:8080](http://localhost:8080/)_
+
+---
+
+## ⏭️ Next Steps
+
+Things that can make it even better.
+
+- Place a rate limiter for endpoints.
+- Reverse proxy to secure backend servers, caching, and balance load.
+- Write an OpenAPI specification for endpoints and create a Swagger dashboard using that, to make the API documentation more readable.
