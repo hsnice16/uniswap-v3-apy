@@ -9,6 +9,8 @@
 
 Backend API that provides the Uniswap V3 protocol on Ethereum APY information.
 
+> Base URL: https://uniswap-v3-apy.onrender.com
+
 ---
 
 ## 📋 API Reference
