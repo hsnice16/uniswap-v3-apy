@@ -6,7 +6,7 @@ function parseAddress(req, res, next) {
   let message;
   let meta = {};
 
-  switch (req.originalUrl) {
+  switch (req.baseUrl) {
     case "/v1/apy": {
       console.log(
         req.method,

@@ -1,6 +1,12 @@
 const axios = require("axios");
+const { UNISWAP_V3_GRAPH_BASE_URL, POOLS_DB } = require("./constants");
 
-async function checkIfPoolExists(address) {
+async function isEthereumMainnetPool(address) {
+  const isPoolExist = POOLS_DB[address];
+  if (isPoolExist || isPoolExist === false) {
+    return true;
+  }
+
   try {
     const poolQuery = `
     {
@@ -15,7 +21,7 @@ async function checkIfPoolExists(address) {
         data: { pool },
       },
     } = await axios({
-      url: "https://api.thegraph.com/subgraphs/name/uniswap/uniswap-v3",
+      url: UNISWAP_V3_GRAPH_BASE_URL,
       method: "POST",
       data: {
         query: poolQuery,
@@ -29,8 +35,8 @@ async function checkIfPoolExists(address) {
     return true;
   } catch (error) {
     // keep it close to the code that throws it
-    console.log(
-      "checkIfPoolExists - error: ",
+    console.error(
+      "isEthereumMainnetPool - error: ",
       error,
       " - iso_date_string: ",
       new Date().toISOString()
@@ -41,5 +47,5 @@ async function checkIfPoolExists(address) {
 }
 
 module.exports = {
-  checkIfPoolExists,
+  isEthereumMainnetPool,
 };

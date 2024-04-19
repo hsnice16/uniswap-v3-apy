@@ -1,6 +1,6 @@
 function errorWrapper(
   code,
-  message = "There was an error in processing your request.",
+  message = "There was some error in processing your request.",
   meta = {}
 ) {
   return {
@@ -47,9 +47,20 @@ function getResponse(status, code, message, data = {}, meta = {}) {
   return response;
 }
 
+function calculateApy(feesUSD, volumeUSD) {
+  feesUSD = parseFloat(parseFloat(feesUSD).toFixed(4));
+  volumeUSD = parseFloat(parseFloat(volumeUSD).toFixed(4));
+
+  const last24hrsReturn = (feesUSD / volumeUSD) * 100;
+  const apy = ((1 + last24hrsReturn / 365) ** 365 - 1) * 100;
+
+  return parseFloat(apy.toFixed(4));
+}
+
 module.exports = {
   errorWrapper,
   successWrapper,
   removeQuotesFromString,
   getResponse,
+  calculateApy,
 };
