@@ -10,6 +10,12 @@
 Backend API that provides the Uniswap V3 protocol on Ethereum APY information.
 
 > Base URL: https://uniswap-v3-apy.onrender.com
+>
+> It is deployed on Render, and
+>
+> "Render spins down a Free web service that goes 15 minutes without receiving inbound traffic. Render spins the service back up whenever it next receives a request to process.
+>
+> Spinning up a service takes a few seconds, which causes a noticeable delay for incoming requests until the service is back up and running. For example, a browser page load will hang momentarily."
 
 ---
 
