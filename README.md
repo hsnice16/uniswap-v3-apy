@@ -2,8 +2,8 @@
 
 # ✨ Uniswap V3 APY
 
-![Forks](https://img.shields.io/github/forks/hsnice16/stella-uniswap-v3-apy)
-![Stars](https://img.shields.io/github/stars/hsnice16/stella-uniswap-v3-apy)
+![Forks](https://img.shields.io/github/forks/hsnice16/uniswap-v3-apy)
+![Stars](https://img.shields.io/github/stars/hsnice16/uniswap-v3-apy)
 
 </div>
 
@@ -72,8 +72,8 @@ Request Body
 ### Pull the code
 
 ```shell
-git clone git@github.com:hsnice16/stella-uniswap-v3-apy.git
-cd stella-uniswap-v3-apy
+git clone git@github.com:hsnice16/uniswap-v3-apy.git
+cd uniswap-v3-apy
 ```
 
 ### Run in a Docker Container or start the server manually
